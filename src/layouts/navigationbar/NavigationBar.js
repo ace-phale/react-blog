@@ -19,23 +19,12 @@ const NavigationBar = () => {
   ));
 
   return (
-    <Navbar
-      className='p-3'
-      collapseOnSelect
-      expand='sm'
-      bg='dark'
-      variant='dark'
-    >
+    <Navbar className='p-3' collapseOnSelect expand='sm' bg='light' variant='light'>
       <Navbar.Toggle aria-controls='navbar-collapse' />
       <Navbar.Collapse className='justify-content-between' id='navbar-collapse'>
         <Nav className='flex-fill'>{navlinks}</Nav>
         <Form inline>
-          <FormControl
-            type='text'
-            placeholder='Search tag'
-            className='mr-2'
-            style={{ width: 'auto' }}
-          />
+          <FormControl type='text' placeholder='Search tag' className='mr-2' style={{ width: 'auto' }} />
           <Button variant='outline-light'>Search</Button>
         </Form>
       </Navbar.Collapse>

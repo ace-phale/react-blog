@@ -1,14 +1,20 @@
 import './PostCard.css';
+import { useState } from 'react';
+//components
+import LoadingCard from '../../components/loadingcard/LoadingCard';
 
 //react-bootstrap
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 
+//react-router-bootstrap
+import { LinkContainer } from 'react-router-bootstrap';
 //react-router
 import { Link } from 'react-router-dom';
 
 const PostCard = (props) => {
   const { text, image, likes, link, tags, publishDate, owner, id } = props.post;
+  const [imageIsLoaded, setImageIsLoaded] = useState(false);
 
   //cuts text if too long
   const displayText = (text) => {
@@ -17,20 +23,32 @@ const PostCard = (props) => {
     }
     return text;
   };
-
+  console.log(imageIsLoaded);
   const displayTags = tags.map((tag) => (
-    <Card.Link className='small' style={{ color: '#00376b' }}>
-      <Link to={'/tag/' + tag} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+    <Container key={tag} className='small pl-0' style={{ color: '#00376b' }}>
+      <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to={'/tag/' + tag}>
         #{tag}
       </Link>
-    </Card.Link>
+    </Container>
   ));
   return (
     <Container className='col-12 col-lg-4 p-lg-4 pb-3'>
       <Card style={{ height: '100%' }}>
-        <Link to={'/post/' + id} style={{ position: 'relative', paddingBottom: '56.2%' }}>
-          <Card.Img variant='top' src={image} style={{ position: 'absolute', objectFit: 'cover', width: '100%', height: '100%' }} />
+        {!imageIsLoaded && (
+          <Container style={{ position: 'relative', paddingBottom: '56.2%' }}>
+            <LoadingCard />
+          </Container>
+        )}
+
+        <Link to={'/post/' + id} style={{ position: 'relative', paddingBottom: '56.2%', display: !imageIsLoaded ? 'none' : 'flex' }}>
+          <Card.Img
+            variant='top'
+            onLoad={() => setImageIsLoaded(true)}
+            src={image}
+            style={{ position: 'absolute', objectFit: 'cover', width: '100%', height: '100%' }}
+          />
         </Link>
+
         <Card.Body className='p-3 d-flex flex-column'>
           <Card.Title className='initialism font-weight-bold my-1'>
             <Link to={'/user/' + owner.id} style={{ color: 'inherit', textDecoration: 'inherit' }}>

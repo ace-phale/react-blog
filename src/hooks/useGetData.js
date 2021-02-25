@@ -25,6 +25,7 @@ const useGetData = (url) => {
 
     setData(data);
     setIsLoading(false);
+
     return data.data;
   };
 
