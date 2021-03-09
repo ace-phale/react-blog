@@ -1,4 +1,8 @@
+.hoverShadow {
+  transition: 0.3s;
+}
 .hoverShadow:hover {
   box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.175) !important;
+  background-color: #ebebeb;
   transition: 0.3s;
 }

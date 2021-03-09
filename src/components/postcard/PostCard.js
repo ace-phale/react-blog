@@ -26,9 +26,9 @@ const PostCard = (props) => {
     }
     return text;
   };
-  console.log(imageIsLoaded);
+
   const displayTags = tags.map((tag) => (
-    <Container key={tag} className='small pl-0' style={{ color: '#00376b' }}>
+    <Container key={tag} className='small pl-0' style={{ color: '#E5383B' }}>
       <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to={'/tag/' + tag}>
         #{tag}
       </Link>
@@ -36,7 +36,7 @@ const PostCard = (props) => {
   ));
   return (
     <Container className='col-12 col-lg-4 p-lg-4 pb-3 '>
-      <Card className='shadow-sm hoverShadow' style={{ height: '100%' }}>
+      <Card className='shadow-sm hoverShadow' style={{ height: '100%', backgroundColor: '' }}>
         {!imageIsLoaded && (
           <Container style={{ position: 'relative', paddingBottom: '56.2%' }}>
             <LoadingCard />
@@ -55,7 +55,7 @@ const PostCard = (props) => {
         <Card.Body className='p-3 d-flex flex-column'>
           <Card.Title className='initialism font-weight-bold my-1'>
             <Link to={'/user/' + owner.id} style={{ color: 'inherit', textDecoration: 'inherit' }}>
-              {owner.firstName} {owner.lastName}{' '}
+              {owner.firstName} {owner.lastName}
             </Link>
           </Card.Title>
 
@@ -65,9 +65,9 @@ const PostCard = (props) => {
             </Link>
           </Card.Subtitle>
 
-          <Card.Subtitle className='font-weight-bold small mt-2'>Likes: {likes}</Card.Subtitle>
+          <Card.Subtitle className='font-weight-bold small my-2'>Likes: {likes}</Card.Subtitle>
           <Row>
-            <Card.Subtitle className='col-7 mt-1 flex-grow'>{displayTags}</Card.Subtitle>
+            <Card.Subtitle className='col-7 mt-2 flex-grow'>{displayTags}</Card.Subtitle>
             <Col className='' style={{ position: 'relative' }}>
               <Link to={'/post/' + id}>
                 <Button

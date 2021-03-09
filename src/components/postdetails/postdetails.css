@@ -1,0 +1,15 @@
+.borderNoEffet {
+  border-style: solid;
+  border-width: 0px 0px 0px 3px;
+  border-color: rgba(0, 0, 0, 0);
+}
+.borderEffect {
+  transition: 0.4s;
+  border-style: solid;
+  border-width: 0px 0px 0px 3px;
+  border-color: rgba(0, 0, 0, 0);
+}
+.borderEffect:hover {
+  transition: 0.4s;
+  border-color: #e5383b;
+}

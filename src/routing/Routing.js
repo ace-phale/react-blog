@@ -2,9 +2,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //layouts
 import Header from '../layouts/header/Header';
-
 import ShortcutBar from '../layouts/shortcutbar/ShortcutBar';
-
+import Footer from '../layouts/footer/Footer';
+//react-bootstrap
+import Container from 'react-bootstrap/Container';
 //pages
 import HomePage from '../pages/homepage/HomePage';
 import About from '../pages/about/About';
@@ -26,6 +27,7 @@ const Routing = () => {
         <Route exact path='/' component={HomePage} />
         <Route component={NotFound404} />
       </Switch>
+      <Footer />
     </Router>
   );
 };

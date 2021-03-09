@@ -6,13 +6,13 @@ import { popularTags } from '../../static/shortcutBarStatic';
 const ShortcutBar = () => {
   const shortcutBarItems = popularTags().map((item) => (
     <ListGroup.Item key={item} className='col-2 text-center p-0' style={{ border: 'none' }}>
-      <NavLink className='text-muted' to={'/tag/' + item}>
+      <NavLink className='tag' style={{ textDecoration: 'inherit' }} to={'/tag/' + item}>
         {item}
       </NavLink>
     </ListGroup.Item>
   ));
   return (
-    <ListGroup className='d-none d-md-flex pt-4' horizontal>
+    <ListGroup className='d-none d-md-flex pt-3' horizontal>
       {shortcutBarItems}
     </ListGroup>
   );
