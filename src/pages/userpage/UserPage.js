@@ -43,10 +43,16 @@ const UserPage = () => {
   if (isLoading || !data || !userData) {
     return <LoadingCard />;
   }
+  if (postIsLoading || !postData || !usersPosts) {
+    return <LoadingCard />;
+  }
   const displayPosts = usersPosts.data.map((post) => <PostCard key={post.id} post={post} />);
+
   return (
     <>
       <UserDetails user={userData} />
+      <hr />
+      <h3 className='text-center p-4'>Posts by {userData.firstName}:</h3>
       <Row className='mx-lg-3  m-1 mt-3 mt-md-0'>{displayPosts}</Row>
     </>
   );
