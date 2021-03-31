@@ -19,6 +19,7 @@ const Routing = () => {
       <Header />
       <ShortcutBar />
       <Switch>
+        <Route path='/react-blog/' component={HomePage} />
         <Route path='/about' component={About} />
         <Route path='/tag/:tag' component={TagPage} />
         <Route path='/post/:id' component={PostPage} />
