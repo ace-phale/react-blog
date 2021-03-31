@@ -1,8 +1,0 @@
-.tag {
-  color: #e5383b !important;
-  transition: 0.4s;
-}
-.tag:hover {
-  transition: 0.4s;
-  text-decoration: underline !important;
-}

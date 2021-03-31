@@ -10,8 +10,6 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-//react-router-bootstrap
-import { LinkContainer } from 'react-router-bootstrap';
 //react-router
 import { Link } from 'react-router-dom';
 
@@ -28,15 +26,15 @@ const PostCard = (props) => {
   };
 
   const displayTags = tags.map((tag) => (
-    <Container key={tag} className='small pl-0' style={{ color: '#E5383B' }}>
+    <Container key={tag} className='small pl-1 p-1 borderTag' style={{ color: '#E5383B' }}>
       <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to={'/tag/' + tag}>
         #{tag}
       </Link>
     </Container>
   ));
   return (
-    <Container className='col-12 col-lg-4 p-lg-4 pb-3 '>
-      <Card className='shadow-sm hoverShadow' style={{ height: '100%', backgroundColor: '' }}>
+    <Container className='col-12 col-lg-7 col-sm-9 p-md-4 pb-3'>
+      <Card className='shadow-sm hoverShadow' style={{ height: '100%', backgroundColor: '#f8f9fa' }}>
         {!imageIsLoaded && (
           <Container style={{ position: 'relative', paddingBottom: '56.2%' }}>
             <LoadingCard />
@@ -53,25 +51,27 @@ const PostCard = (props) => {
         </Link>
 
         <Card.Body className='p-3 d-flex flex-column'>
-          <Card.Title className='initialism font-weight-bold my-1'>
-            <Link to={'/user/' + owner.id} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+          <Card.Title className='initialism font-weight-bold my-1 borderInvisible'>
+            <Link to={'/user/' + owner.id} style={{ color: 'inherit' }}>
               {owner.firstName} {owner.lastName}
             </Link>
           </Card.Title>
 
-          <Card.Subtitle className='font-weight-light mt-2 flex-grow-1'>
+          <Card.Subtitle className='font-weight-light mt-2 flex-grow-1 borderInvisible'>
             <Link to={'/post/' + id} style={{ color: 'inherit', textDecoration: 'inherit' }}>
               {displayText(text)}
             </Link>
           </Card.Subtitle>
 
-          <Card.Subtitle className='font-weight-bold small my-2'>Likes: {likes}</Card.Subtitle>
+          <Card.Subtitle className='font-weight-bold small my-2 borderInvisible'>Likes: {likes}</Card.Subtitle>
+
           <Row>
-            <Card.Subtitle className='col-7 mt-2 flex-grow'>{displayTags}</Card.Subtitle>
+            <Card.Subtitle className='col-7 mt-0 flex-grow'>{displayTags}</Card.Subtitle>
+
             <Col className='' style={{ position: 'relative' }}>
               <Link to={'/post/' + id}>
                 <Button
-                  className=''
+                  id='seeMoreButton'
                   style={{ position: 'absolute', bottom: '0', left: '100%', transform: 'translate(-119%, 0)' }}
                   size=''
                   variant='outline-dark'

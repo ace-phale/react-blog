@@ -1,0 +1,22 @@
+.shortcutTag .tag {
+  transition: 0.4s;
+}
+.shortcutTag .tag:hover {
+  transition: 0.4s;
+  text-decoration: underline;
+}
+
+#tagWrapper {
+  color: rgb(229, 56, 59);
+  transition: 0.4s;
+  border-style: solid;
+  border-width: 1px 0px 1px 0px;
+  border-radius: 0px;
+  border-color: #bababb5d;
+}
+#tagWrapper:hover {
+  transition: 0.4s;
+  border-color: #299bed;
+  background-color: #f8f9fa;
+  box-shadow: black;
+}

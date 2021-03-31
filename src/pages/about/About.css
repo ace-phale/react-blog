@@ -1,0 +1,27 @@
+.aboutSection {
+  line-height: 1.5;
+  padding: 1em 1em 4em 1em;
+  color: #555;
+}
+
+h2 {
+  margin-top: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+h5 {
+  margin-top: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+h2,
+h5 {
+  color: #333;
+}
+.techImage {
+  max-height: 8em;
+  padding: 1em;
+}
+ul {
+  list-style-type: none;
+}

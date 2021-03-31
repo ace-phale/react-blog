@@ -6,3 +6,23 @@
   background-color: #ebebeb;
   transition: 0.3s;
 }
+.borderInvisible {
+  padding-left: 4px;
+  border-left: solid #e5383b00;
+  transition: 0.4s;
+}
+
+.borderTag {
+  padding-left: 4px;
+  border-left: solid #e5383b00;
+  transition: 0.4s;
+}
+.borderTag:hover {
+  border-left: solid #299bed;
+
+  transition: 0.4s;
+}
+#seeMoreButton:hover {
+  background-color: #299bed;
+  border: 1px solid #299bed;
+}

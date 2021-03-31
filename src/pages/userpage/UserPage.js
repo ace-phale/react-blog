@@ -51,7 +51,14 @@ const UserPage = () => {
   return (
     <>
       <UserDetails user={userData} />
-      <hr />
+      <hr
+        style={{
+          height: '1px',
+          border: ' 0',
+          color: 'red',
+          backgroundImage: 'linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(186, 186, 187, 0.75), rgba(0, 0, 0, 0.05))',
+        }}
+      />
       <h3 className='text-center p-4'>Posts by {userData.firstName}:</h3>
       <Row className='mx-lg-3  m-1 mt-3 mt-md-0'>{displayPosts}</Row>
     </>

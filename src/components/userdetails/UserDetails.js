@@ -10,10 +10,10 @@ const UserDetails = (props) => {
   const { dateOfBirth, email, firstName, gender, id, lastName, registerDate, location, picture, title } = props.user;
 
   return (
-    <Container className='col-lg-7 p-3' fluid>
+    <Container className='col-lg-7 col-sm-9 p-3' fluid>
       <Row className='px-1'>
         <Col className='col-12 my-3 '>
-          <Card className='shadow-sm'>
+          <Card className='shadow-sm' style={{ backgroundColor: 'rgb(248, 249, 250)' }}>
             <Container className='p-0 m-0' style={{ display: 'flex', flex: '1 1 auto' }}>
               <Image style={{ borderRadius: '3px' }} src={picture} alt='Card image cap' />
               <Card.Body>

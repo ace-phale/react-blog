@@ -1,7 +1,7 @@
 //tags are static as API does not allow to download a list of them
 // random 6 tags will be exported to simulate 'most popular' tags
 
-const TAGS = [
+export const TAGS = [
   'grass',
   'road sign',
   'pet',
