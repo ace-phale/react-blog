@@ -5,13 +5,12 @@ import useGetData from '../../hooks/useGetData';
 //components
 import LoadingCard from '../../components/loadingcard/LoadingCard';
 import PostDetails from '../../components/postdetails/PostDetails';
-//react-bootstrap
-import Image from 'react-bootstrap/Image';
+import NotFound404 from '../../pages/notfound404/NotFound404';
 
 const PostPage = () => {
   const [post, setPost] = useState(null);
   let { id } = useParams();
-  const { isLoading, isError, error, data, getData } = useGetData('post/' + id);
+  const { isLoading, isError, error, data, responseStatus, getData } = useGetData('post/' + id);
 
   useEffect(async () => {
     await getData();
@@ -19,7 +18,9 @@ const PostPage = () => {
   useEffect(() => {
     setPost(data);
   }, [data]);
-
+  if (isError) {
+    return <NotFound404 status={responseStatus} error={error} />;
+  }
   if (isLoading || !data || !post) {
     return <LoadingCard />;
   }

@@ -5,6 +5,8 @@ import useGetData from '../../hooks/useGetData';
 import LoadingCard from '../../components/loadingcard/LoadingCard';
 import UserDetails from '../../components/userdetails/UserDetails';
 import PostCard from '../../components/postcard/PostCard';
+import NotFound404 from '../notfound404/NotFound404';
+
 //react
 import { useEffect, useState } from 'react';
 //react-bootstrap
@@ -17,7 +19,7 @@ const UserPage = () => {
   const { id } = useParams();
   const [userData, setUserData] = useState();
   const [usersPosts, setUsersPosts] = useState();
-  const { isLoading, isError, error, data, getData } = useGetData('user/' + id);
+  const { isLoading, isError, error, data, responseStatus, getData } = useGetData('user/' + id);
 
   const { isLoading: postIsLoading, isError: postIsError, error: postError, data: postData, getData: getPostData } = useGetData(
     'user/' + id + '/post'
@@ -39,7 +41,9 @@ const UserPage = () => {
     setUsersPosts(postData);
   }, [postData]);
 
-  console.log(postData);
+  if (isError) {
+    return <NotFound404 status={responseStatus} error={error} />;
+  }
   if (isLoading || !data || !userData) {
     return <LoadingCard />;
   }

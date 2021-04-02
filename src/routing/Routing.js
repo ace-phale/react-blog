@@ -13,12 +13,16 @@ import PostPage from '../pages/postpage/PostPage';
 import UserPage from '../pages/userpage/UserPage';
 import NotFound404 from '../pages/notfound404/NotFound404';
 
+//test
+import TestPage from '../pages/testpage/TestPage';
+
 const Routing = () => {
   return (
     <Router>
       <Header />
       <ShortcutBar />
       <Switch>
+        <Route path='/test' component={TestPage} />
         <Route path='/react-blog/' component={HomePage} />
         <Route path='/about' component={About} />
         <Route path='/tag/:tag' component={TagPage} />
