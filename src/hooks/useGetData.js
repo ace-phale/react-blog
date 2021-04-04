@@ -2,15 +2,20 @@ import { useState } from 'react';
 
 import { API_ROOT_URL, API_TOKEN } from '../static/urls';
 
-const useGetData = (url) => {
+const useGetData = (url, page = null) => {
   const [error, setError] = useState(null);
   const [responseStatus, setResponseStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState(null);
+  let path;
 
-  const path = API_ROOT_URL + url;
-
+  if (page != null) {
+    path = API_ROOT_URL + url + `?page=${page}&limit=5`;
+  } else {
+    path = API_ROOT_URL + url;
+  }
+  console.log(path);
   const getData = async () => {
     setIsLoading(true);
     fetch(path, {

@@ -1,7 +1,7 @@
 import useGetData from '../../hooks/useGetData';
 
 import { useEffect, useState } from 'react';
-
+import LoadingCard from '../../components/loadingcard/LoadingCard';
 const TestPage = () => {
   const [posts, setPosts] = useState([]);
 
@@ -29,16 +29,7 @@ const TestPage = () => {
     }
   };
   log();
-  return (
-    <div>
-      <li>
-        {/* <ul>isLoading: {isLoading}</ul>
-        <ul>isError: {isError}</ul>
-        <ul>error: {error}</ul>
-        <ul>data: {}</ul> */}
-      </li>
-    </div>
-  );
+  return <LoadingCard />;
 };
 
 export default TestPage;

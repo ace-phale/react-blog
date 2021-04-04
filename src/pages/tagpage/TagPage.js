@@ -13,47 +13,56 @@ import Row from 'react-bootstrap/Row';
 const TagPage = () => {
   const [posts, setPosts] = useState([]);
   const [currentTag, setCurrentTag] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+  const [nextPageIsLoading, setNextPageIsLoading] = useState(true);
   let { tag } = useParams();
-  const { isLoading, isError, error, data, responseStatus, getData } = useGetData('tag/' + tag + '/post');
-
-  const log = () => {
-    console.log('_____________________');
-    console.log(`isLoading: ${isLoading}`);
-    console.log(`isError: ${isError}`);
-    console.log(`error: ${error}`);
-    console.log(`data: ${data}`);
-    console.log(`response status: ${responseStatus}`);
-    if (data) {
-      console.log('Data:');
-      console.log(data.data);
-    }
-    if (error) {
-      console.log('Error:');
-      console.log(error);
-    }
-  };
+  const { isLoading, isError, error, data, responseStatus, getData } = useGetData(`tag/${tag}/post`, currentPage);
 
   //after every change of TAG prop reloads the component and fetches new data
   useEffect(async () => {
-    setCurrentTag(tag);
+    if (currentTag != tag) {
+      setCurrentTag(tag);
+      setCurrentPage(0);
+      setPosts([]);
+    }
+    console.log('tag / current page effectr');
     await getData();
-  }, [tag]);
+  }, [tag, currentPage]);
+
   useEffect(() => {
     if (data) {
-      setPosts([...data.data]);
+      setPosts((oldPosts) => [...oldPosts, ...data.data]);
+      setNextPageIsLoading(false);
     }
+    console.log('data effect');
   }, [data]);
-  // log();
-  //displays loading if fetching not yet completed
+
+  useEffect(() => {
+    window.addEventListener('scroll', infiniteScroll);
+  }, []);
+
+  //infinite scroll
+  const infiniteScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+      setCurrentPage((lastPage) => lastPage + 1);
+
+      setNextPageIsLoading(true);
+    }
+  };
+
+  const displayPosts = posts.map((post) => <PostCard key={post.id} post={post} />);
+
   if (isError) {
     return <NotFound404 status={responseStatus} error={error} />;
   }
-  if (isLoading || !data || posts.length === 0) {
-    return <LoadingCard />;
-  }
 
-  const displayPosts = posts.map((post) => <PostCard key={post.id} post={post} />);
-  return <>{data && !isLoading && <Row className='mx-lg-3  m-1 mt-3 mt-md-0'>{displayPosts}</Row>}</>;
+  return (
+    <>
+      {<Row className='mx-lg-3  m-1 mt-3 mt-md-0'>{displayPosts}</Row>}
+
+      {nextPageIsLoading && <LoadingCard />}
+    </>
+  );
 };
 
 export default TagPage;
