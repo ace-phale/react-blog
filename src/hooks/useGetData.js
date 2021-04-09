@@ -15,9 +15,10 @@ const useGetData = (url, page = null) => {
   } else {
     path = API_ROOT_URL + url;
   }
-  console.log(path);
+
   const getData = async () => {
     setIsLoading(true);
+    console.log(`fetching from ${path}`);
     fetch(path, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin

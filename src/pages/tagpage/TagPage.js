@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import useGetData from '../../hooks/useGetData';
 
@@ -11,42 +11,81 @@ import NotFound404 from '../../pages/notfound404/NotFound404';
 import Row from 'react-bootstrap/Row';
 
 const TagPage = () => {
-  const [posts, setPosts] = useState([]);
-  const [currentTag, setCurrentTag] = useState('');
-  const [currentPage, setCurrentPage] = useState(0);
-  const [nextPageIsLoading, setNextPageIsLoading] = useState(true);
   let { tag } = useParams();
-  const { isLoading, isError, error, data, responseStatus, getData } = useGetData(`tag/${tag}/post`, currentPage);
+  const [posts, setPosts] = useState([]);
+  const [currentPageState, setCurrentPageState] = useState(0); //used to start useEffect that updates the page, might have wrong value
 
-  //after every change of TAG prop reloads the component and fetches new data
-  useEffect(async () => {
-    if (currentTag != tag) {
-      setCurrentTag(tag);
-      setCurrentPage(0);
-      setPosts([]);
+  const currentPage = useRef(0); //used to store current page value
+  const nextPageIsLoading = useRef(false);
+  const isLastPageReached = useRef(false);
+
+  const currentTag = useRef(tag);
+
+  const { isLoading, isError, error, data, responseStatus, getData } = useGetData(`tag/${tag}/post`, currentPage.current);
+
+  //executed once
+  useEffect(() => {}, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', infiniteScroll);
+    return () => {
+      window.removeEventListener('scroll', infiniteScroll);
+    };
+  }, []);
+
+  //executed when param 'tag' changes
+  useEffect(() => {
+    if (currentTag.current != tag) {
+      console.log('tag change');
+
+      onTagChange();
     }
-    console.log('tag / current page effectr');
-    await getData();
-  }, [tag, currentPage]);
+  }, [tag]);
+  //executed after new data is fetched
 
   useEffect(() => {
     if (data) {
       setPosts((oldPosts) => [...oldPosts, ...data.data]);
-      setNextPageIsLoading(false);
+      if (posts.length + data.data.length === data.total) {
+        isLastPageReached.current = true;
+      }
+      nextPageIsLoading.current = false;
     }
-    console.log('data effect');
   }, [data]);
 
+  //executed when state 'currentPage' changes
   useEffect(() => {
-    window.addEventListener('scroll', infiniteScroll);
-  }, []);
+    onPageChange();
+  }, [currentPage.current]);
 
-  //infinite scroll
+  const setPostList = () => {
+    nextPageIsLoading.current = true;
+    getData();
+  };
+
+  const onPageChange = () => {
+    setPostList();
+  };
+  const onTagChange = () => {
+    if (currentPage.current === 0) {
+      setPostList();
+    }
+    currentPage.current = 0;
+    currentTag.current = tag;
+    isLastPageReached.current = false;
+    setPosts([]);
+
+    setCurrentPageState(0);
+  };
+
   const infiniteScroll = () => {
     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
-      setCurrentPage((lastPage) => lastPage + 1);
-
-      setNextPageIsLoading(true);
+      if (!nextPageIsLoading.current && !isLastPageReached.current) {
+        currentPage.current = currentPage.current + 1;
+        setCurrentPageState(currentPage.current);
+      } else {
+        console.log('not adding next page');
+      }
     }
   };
 
@@ -55,12 +94,13 @@ const TagPage = () => {
   if (isError) {
     return <NotFound404 status={responseStatus} error={error} />;
   }
-
+  if (data) {
+  }
   return (
     <>
       {<Row className='mx-lg-3  m-1 mt-3 mt-md-0'>{displayPosts}</Row>}
 
-      {nextPageIsLoading && <LoadingCard />}
+      {nextPageIsLoading.current && <LoadingCard />}
     </>
   );
 };

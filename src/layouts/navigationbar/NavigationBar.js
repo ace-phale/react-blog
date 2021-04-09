@@ -1,3 +1,4 @@
+import './NavigationBar.css';
 //react-bootstrap
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -23,7 +24,7 @@ const NavigationBar = () => {
   ));
 
   return (
-    <Navbar className='pl-2 p-1 m-1' collapseOnSelect expand='md' style={{ backgroundColor: '#FFFAA' }}>
+    <Navbar className='' collapseOnSelect expand='md' style={{ backgroundColor: '#FFFAA' }}>
       <Navbar.Brand>
         <NavLink to='/'>
           <Image style={{ height: '1.8em' }} src={logo} />
